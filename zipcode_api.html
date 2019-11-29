@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ziptastic</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>	
+	<div id="app">
+		<input type="text" v-model="startingZip">
+		<span>{{startingCity}}</span>
+		<input type="text" v-model="endingZip">
+		<span>{{ endingCity }}</span>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data: {
+			startingZip: '',
+			startingCity: '',
+			endingZip: '',
+			endingCity: ''
+		},
+		watch:{
+			startingZip: function() {
+				this.startingCity = ''
+				if (this.startingZip.length == 6) {
+					this.lookupStartingZip()
+				}
+			},
+			endingZip: function(){
+				this.endingCity = ''
+				if(this.endingZip.length ==5){
+					this.lookupEndingZip()
+				}
+			}
+		},
+		methods:{
+			lookupStartingZip: _.debounce(function(){
+				var app = this
+				app.startingCity = 'Searching...'
+				axios.get('https://ezcmd.com/apps/api_geo_postal_codes/nearby_locations_by_zip_code/GUEST_USER/-1?zip_code='+this.startingZip+'&country_code=IN')
+				.then(function(response){
+					console.log(response)
+					app.startingCity = response.data.search_results[0].community  
+				})
+				.catch(function(error){
+					app.startingCity = 'Invalid Zipcode'
+				})
+			},500),
+			lookupEndingZip: _.debounce(function(){
+				var app = this
+				app.endingCity = 'Searching...'
+				axios.get('http://ZiptasticAPI.com/'+ app.endingZip)
+				.then(function(response){
+					app.endingCity = response.data.city +', '+response.data.state 
+				})
+				.catch(function(error){
+					app.endingCity = 'Invalid Zipcode'
+				})
+			},500)
+		}
+	});
+</script>
+</html>

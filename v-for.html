@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue Js</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>	
+	<div id="app">
+		<ul>
+			<li style="list-style-type:none" v-for="todo in todos">{{todo.id}} .) {{todo.item}}</li>
+		</ul>
+		<h6 v-for="srno in count">{{ srno}} .)Run me using Count</h6>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data : {
+			todos: [
+			{item: 'My name is Amrit', id: '1'},
+			{item: 'My name is Vivek', id: '2'}
+			],
+			count : 10
+		}
+	});
+</script>
+</html>

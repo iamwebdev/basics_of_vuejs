@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue Js</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>	
+	<div id="app">
+		<h1>Hello {{fullname}}</h1>
+		<h2>First Name: {{first}}</h2>
+		<h3>Last Name: {{last}}</h3>
+		<input type="text" v-model="first">
+		<input type="text" v-model="last">
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#app',
+		data : {
+			first: '',
+			last: '',
+		},
+		computed: {
+			fullname:function() {
+				return this.first+' '+ this.last;
+			}
+		}
+	});
+</script>
+</html>

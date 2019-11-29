@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue Js</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+	<div id="app">
+		<strong>You are a {{level}}</strong>
+		<h3>Current Points: {{ points }}</h3>
+		<button @click="add" class="btn btn-primary" >Add Points</button>
+		<button @click="sub" class="btn btn-danger">Decrease Points</button>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el : '#app',
+		data: {
+			points : 10
+		},
+		methods : {
+			add: function(){
+				this.points +=10;
+			},	
+			sub:function(){
+				this.points -=10;
+			}
+		},
+		computed: {
+			level : function(){
+				if(this.points >=100){
+					return 'Pro'
+				} else if(this.points <50) {
+					return 'Intermediate'
+				}else if (this.points <=0) {
+					return 'Begginer'
+				}else {
+					return 'Banned'
+				}
+			}
+		}
+	});
+</script>
+</html>
